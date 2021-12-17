@@ -2,13 +2,11 @@ const events = ( state = [], action ) => {
   switch(action.type) {
     case "CREATE_EVENT":
       const event = {title: action.title, body:action.body}
-      const length = state.length
-      // const id = length === 0 ? 1 : state[length - 1].id + 1
-      const id = length === 0 ? 1 : length + 1
-      // return {id:id, ...event}
-      return {id, ...event} //上と同じ意味
+      let slength = state.length
+      let id = slength === 0 ? 1 : state[slength - 1].id + 1
+      return [...state, {id, ...event}] // id:idと同じ
     case "DELETE_EVENT":
-      return state
+      return state.filter( event => event.id !== action.deleteId )
     case "FELETE_ALL_EVENT":
       return state
     default:
@@ -16,4 +14,4 @@ const events = ( state = [], action ) => {
   }
 }
 
-export default events
+export default events;
